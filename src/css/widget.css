@@ -1,0 +1,306 @@
+/* IMPORTANT: because it shrinks my widget to fit as I made it outside this project */
+
+#yanela-widget {
+    transform: scale(0.80);
+    transform-origin: center center;
+
+    width: 800px;
+    height: 640px;
+
+    position: relative;
+    overflow: visible;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: 'Share Tech Mono', monospace;
+
+    margin: 0;
+
+    background: transparent;
+
+    box-shadow: none;
+}
+
+#yanela-widget::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.35;
+    filter: blur(1px);
+    background-image:
+            linear-gradient(rgba(114, 159, 222, 0.015) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(114, 159, 222, 0.015) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+
+#yanela-widget::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+
+    background:
+            radial-gradient(
+                    circle at center,
+                    rgba(0,140,255,0.05) 0%,
+                    rgba(0,0,0,0) 70%
+            );
+
+    pointer-events: none;
+    z-index: 0;
+}
+
+#yanela-widget .yw-fog{
+    position: absolute;
+    inset: 0;
+
+    background:
+            radial-gradient(circle at 20% 30%, rgba(0,180,255,0.06), transparent 40%),
+            radial-gradient(circle at 80% 70%, rgba(140,0,255,0.05), transparent 45%);
+
+    filter: blur(40px);
+
+    pointer-events: none;
+
+    z-index: 0;
+}
+
+#yw-scene {
+    width: 100%; height: 100%; position: relative;
+    display: flex; align-items: center; justify-content: center; z-index: 1;
+}
+#yw-ground {
+    position: absolute; width: 800px; height: 800px;
+    left: calc(50% - 400px); top: calc(50% - 10px);
+    transform: rotateX(90deg) translateZ(-170px);
+    background-image:
+            linear-gradient(rgba(0,229,255,0.08) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0,229,255,0.08) 1px, transparent 1px);
+    background-size: 50px 50px;
+    border: 1px solid rgba(0,229,255,0.1);
+    transform-style: preserve-3d;
+}
+#yw-stage {
+    width: 100%; height: 100%; position: relative;
+    transform-style: preserve-3d; perspective: 1000px;
+}
+#yw-rig {
+    width: 0; height: 0; position: absolute;
+    left: 50%; top: 46%;
+    transform-style: preserve-3d;
+    animation: yw-spin 28s linear infinite;
+}
+#yw-rig.yw-paused { animation-play-state: paused; }
+@keyframes yw-spin {
+    from { transform: rotateY(0deg) rotateX(9deg); }
+    to   { transform: rotateY(360deg) rotateX(9deg); }
+}
+
+/* Panel */
+#yanela-widget .yw-panel {
+    width: 200px; height: 270px;
+    position: absolute; left: -100px; top: -135px;
+    transform-style: preserve-3d; cursor: pointer;
+    transition: filter 0.25s;
+}
+#yanela-widget .yw-panel:hover {
+    filter: brightness(1.35) drop-shadow(0 0 10px rgba(0,229,255,0.55));
+}
+#yanela-widget .yw-panel.yw-lit .yw-pface {
+    border-color: rgba(0,229,255,0.9);
+    box-shadow: 0 0 32px rgba(0,229,255,0.22), inset 0 0 18px rgba(0,229,255,0.04);
+}
+#yanela-widget .yw-pface {
+    width: 100%; height: 100%;
+    border: 1px solid rgba(0,200,255,0.3);
+    background: rgba(0, 25, 80, 0.22);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 4px;
+    display: flex; flex-direction: column;
+    overflow: hidden; backface-visibility: hidden;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    position: relative;
+}
+#yanela-widget .yw-pface::after {
+    content: ''; position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+            0deg, transparent, transparent 3px,
+            rgba(0,229,255,0.022) 3px, rgba(0,229,255,0.022) 4px
+    );
+    pointer-events: none; z-index: 5;
+}
+
+/* Title bar */
+#yanela-widget .yw-phead {
+    width: 100%; height: 22px;
+    background: rgba(0,180,255,0.1);
+    border-bottom: 1px solid rgba(0,200,255,0.2);
+    display: flex; align-items: center;
+    padding: 0 8px; gap: 5px; flex-shrink: 0;
+}
+#yanela-widget .yw-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+#yanela-widget .yw-dr { background: rgba(255,80,80,0.65); }
+#yanela-widget .yw-dy { background: rgba(255,195,0,0.65); }
+#yanela-widget .yw-dg { background: rgba(0,225,120,0.65); }
+#yanela-widget .yw-ptitle {
+    color: rgba(0,215,255,0.5); font-size: 8px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    margin-left: 3px; overflow: hidden;
+    text-overflow: ellipsis; white-space: nowrap;
+}
+
+/* Panel body */
+#yanela-widget .yw-pbody {
+    flex: 1; padding: 12px 12px 10px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: space-between;
+    overflow: hidden;
+}
+#yanela-widget .yw-lang {
+    font-family: 'Orbitron', monospace;
+    font-size: 15px; font-weight: 700;
+    letter-spacing: 0.18em; text-align: center;
+}
+#yanela-widget .yw-sub {
+    font-size: 7px; letter-spacing: 0.1em;
+    text-align: center; color: rgba(0,200,255,0.38);
+    margin-top: 3px;
+}
+#yanela-widget .yw-sep {
+    height: 1px; background: rgba(0,200,255,0.18);
+    width: 100%; margin: 8px 0;
+}
+
+/* Witty block */
+#yanela-widget .yw-witty {
+    width: 100%; flex: 1;
+    display: flex; flex-direction: column;
+    justify-content: center; gap: 2px;
+}
+#yanela-widget .yw-wline {
+    font-size: 9px; letter-spacing: 0.06em;
+    line-height: 1.7; text-align: left;
+    white-space: nowrap; overflow: hidden;
+}
+#yanela-widget .yw-wa { color: rgba(0,240,200,0.9); }
+#yanela-widget .yw-wb { color: rgba(0,200,255,0.6); }
+#yanela-widget .yw-wc { color: rgba(255,200,0,0.75); }
+#yanela-widget .yw-wd { color: rgba(255,90,90,0.75); }
+
+/* Chips */
+#yanela-widget .yw-chips {
+    display: flex; flex-wrap: wrap;
+    gap: 3px; width: 100%; margin-top: 8px;
+}
+#yanela-widget .yw-chip {
+    border: 1px solid rgba(0,200,255,0.22);
+    color: rgba(0,200,255,0.6);
+    font-size: 7px; padding: 2px 5px;
+    letter-spacing: 0.07em; border-radius: 2px;
+}
+
+/* Skill bar */
+#yanela-widget .yw-sbar-wrap { width: 100%; margin-top: 8px; }
+#yanela-widget .yw-sbar {
+    height: 2px; background: rgba(0,200,255,0.1);
+    border-radius: 1px; overflow: hidden;
+}
+#yanela-widget .yw-sfill { height: 100%; border-radius: 1px; }
+#yanela-widget .yw-slabel {
+    font-size: 7px; color: rgba(0,200,255,0.35);
+    text-align: right; margin-top: 3px; letter-spacing: 0.06em;
+}
+
+/* Detail overlay */
+#yw-overlay {
+    position: absolute; inset: 0;
+    background: rgba(0,0,0,0.62);
+    display: none; align-items: center; justify-content: center; z-index: 40;
+}
+#yw-overlay.yw-show { display: flex; }
+#yw-detail {
+    width: 320px;
+    background: rgba(2,10,26,0.98);
+    border: 1px solid rgba(0,229,255,0.45);
+    border-radius: 5px; padding: 22px 22px 20px;
+    display: flex; flex-direction: column; gap: 14px;
+    box-shadow: 0 0 50px rgba(0,150,255,0.15);
+    position: relative;
+}
+#yw-close {
+    position: absolute; top: 11px; right: 14px;
+    background: none; border: none;
+    color: rgba(0,200,255,0.45); font-size: 15px;
+    cursor: pointer; font-family: 'Share Tech Mono', monospace;
+    line-height: 1; transition: color 0.2s;
+}
+#yw-close:hover { color: rgba(0,255,200,0.9); }
+#yw-dlang {
+    font-family: 'Orbitron', monospace;
+    font-size: 20px; font-weight: 700; letter-spacing: 0.18em;
+}
+#yw-dsub {
+    font-size: 9px; letter-spacing: 0.12em;
+    color: rgba(0,200,255,0.42); margin-top: -6px;
+}
+#yw-dtrack { height: 3px; background: rgba(0,200,255,0.12); border-radius: 2px; overflow: hidden; }
+#yw-dfill  { height: 100%; border-radius: 2px; transition: width 0.6s ease; }
+#yw-dpct   { font-size: 10px; color: rgba(0,200,255,0.45); text-align: right; margin-top: 4px; letter-spacing: 0.08em; }
+#yw-dchips { display: flex; flex-wrap: wrap; gap: 5px; }
+#yanela-widget .yw-dchip {
+    border: 1px solid rgba(0,200,255,0.28);
+    color: rgba(0,200,255,0.72);
+    font-size: 9px; padding: 3px 8px;
+    border-radius: 2px; letter-spacing: 0.07em;
+}
+#yw-dwitty {
+    border: 1px solid rgba(0,200,255,0.15);
+    border-radius: 3px;
+    background: rgba(0,200,255,0.04);
+    padding: 12px 14px;
+    display: flex; flex-direction: column; gap: 2px;
+}
+#yanela-widget .yw-dwline {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px; letter-spacing: 0.05em; line-height: 1.8;
+}
+
+/* Nameplate */
+#yw-plate {
+    position: absolute; bottom: 14px; left: 50%;
+    transform: translateX(-50%);
+    text-align: center; z-index: 30;
+    pointer-events: none; white-space: nowrap;
+}
+#yw-plate .yw-name {
+    font-family: 'Orbitron', monospace;
+    font-size: 14px; font-weight: 900; letter-spacing: 0.28em;
+    color: rgba(0,255,255,0.92);
+    text-shadow: 0 0 16px rgba(0,255,255,0.45);
+}
+#yw-plate .yw-role {
+    font-size: 8px; letter-spacing: 0.06em;
+    color: rgba(0,200,255,0.45); margin-top: 4px; font-style: italic;
+}
+#yw-plate .yw-hint {
+    font-size: 7px; letter-spacing: 0.1em;
+    color: rgba(0,200,255,0.2); margin-top: 5px;
+}
+
+/* Particles */
+#yanela-widget .yw-pt {
+    position: absolute; width: 1px; height: 1px;
+    border-radius: 50%; background: rgba(0,229,255,0.7);
+    animation: yw-fup linear infinite; opacity: 0; pointer-events: none;
+}
+@keyframes yw-fup {
+    0%   { transform: translateY(640px); opacity: 0; }
+    12%  { opacity: 0.7; }
+    88%  { opacity: 0.25; }
+    100% { transform: translateY(-20px); opacity: 0; }
+}

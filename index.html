@@ -7,6 +7,14 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Home Base </title>
 
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/src/css/style.css">
+    <link rel="stylesheet" href="/src/css/widget.css">
+
+    <!-- These are google link for my widget that spins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+
 </head>
 <body>
 
@@ -66,10 +74,30 @@
           </div>
 
           <div class="hero-vid-box">
-              <video playsinline muted loop autoplay>
-                  <source src="/videos/hero-video.mp4" type="video/mp4">
-              </video>
-          </div>
+
+              <!-- widget with the information on my code stack-->
+                  <div id="yanela-widget">
+                      <div id="yw-scene">
+                          <div id="yw-ground"></div>
+                          <div id="yw-stage"><div id="yw-rig"></div></div>
+                          <div id="yw-overlay">
+                              <div id="yw-detail">
+                                  <button id="yw-close">✕</button>
+                                  <div><div id="yw-dlang"></div><div id="yw-dsub"></div></div>
+                                  <div><div id="yw-dtrack"><div id="yw-dfill"></div></div><div id="yw-dpct"></div></div>
+                                  <div id="yw-dchips"></div>
+                                  <div id="yw-dwitty"></div>
+                              </div>
+                          </div>
+                          <div id="yw-plate">
+                              <div class="yw-name">I BUILD IT, BREAK IT, STYLE IT, <br> STORE IT, SECURE IT — THEN PUSH TO MAIN.</div>
+
+                          </div>
+                      </div>
+
+                      <div class="yw-fog"></div>
+                  </div>
+              </div>
 
           <div class="scroll-down"> </div>
 
@@ -77,7 +105,7 @@
   </div>
 
   <!-- Scripts -->
-  <script type="module" src="/src/main.js"></script>
-
+  <script src="/src/js/widget.js"></script>
+  <script type="module" src="/src/js/main.js"></script>
 </body>
 </html>
